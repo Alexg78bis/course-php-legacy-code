@@ -1,24 +1,24 @@
 "/":
-  controller: Pages
-  action: default
+    controller: Pages
+    action: default
 
 "/liste_des_utilisateurs":
-  controller: Users
-  action: default
+    controller: Users
+    action: default
 
 "/ajouter_un_utilisateur":
-  controller: Users
-  action: add
+    controller: Users
+    action: add
 
 
 "/enregistrer_un_utilisateur":
-  controller: Users
-  action: save
+    controller: Users
+    action: save
 
 "/connexion":
-  controller: Users
-  action: login
+    controller: Users
+    action: login
 
 "/mot_de_passe_oublie":
-  controller: Users
-  action: forgetPassword
+    controller: Users
+    action: forgetPassword
