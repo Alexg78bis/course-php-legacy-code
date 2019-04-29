@@ -6,7 +6,7 @@ class View
     private $t;
     private $data = [];
 
-    public function __construct($v, $t = "back")
+    public function __construct($v, $t = 'back')
     {
         $this->setView($v);
         $this->setTemplate($t);
@@ -14,7 +14,7 @@ class View
 
     public function setView($v)
     {
-        $viewPath = "views/" . $v . ".view.php";
+        $viewPath = 'views/' . $v . '.view.php';
         if (file_exists($viewPath)) {
             $this->v = $viewPath;
         } else {
@@ -24,7 +24,7 @@ class View
 
     public function setTemplate($t)
     {
-        $templatePath = "views/templates/" . $t . ".tpl.php";
+        $templatePath = 'views/templates/' . $t . '.tpl.php';
         if (file_exists($templatePath)) {
             $this->t = $templatePath;
         } else {
@@ -34,7 +34,7 @@ class View
 
     public function addModal($modal, $config)
     {
-        $modalPath = "views/modals/" . $modal . ".mod.php";
+        $modalPath = 'views/modals/' . $modal . '.mod.php';
         if (file_exists($modalPath)) {
             include $modalPath;
         } else {
@@ -46,7 +46,6 @@ class View
     {
         $this->data[$key] = $value;
     }
-
 
     public function __destruct()
     {
