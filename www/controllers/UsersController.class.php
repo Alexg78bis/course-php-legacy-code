@@ -1,5 +1,7 @@
 <?php
 
+namespace Controller;
+
 class UsersController
 {
     public function defaultAction()

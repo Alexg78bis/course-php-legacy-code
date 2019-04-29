@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 class Routing
 {
     public static $routeFile = 'routes.yml';
@@ -18,7 +20,7 @@ class Routing
             return ['c' => null, 'a' => null, 'cPath' => null];
         }
 
-        return ['c' => $c, 'a' => $a, 'cPath' => $cPath];
+        return ['c' => '\\Controller\\' . $c, 'a' => $a, 'cPath' => $cPath];
     }
 
     public static function getSlug($c, $a)
