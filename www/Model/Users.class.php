@@ -1,8 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace Models;
 
-class Users extends BaseSQL
+use Core\BaseSQL;
+use Core\Routing;
+
+class Users extends BaseSQL implements UserForm
 {
     public $id = null;
     public $firstname;

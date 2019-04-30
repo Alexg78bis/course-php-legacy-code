@@ -1316,7 +1316,7 @@
 	 * It is useful to have variables which are scoped locally so only the
 	 * DataTables functions can access them and they don't leak into global space.
 	 * At the same time these functions are often useful over multiple files in the
-	 * core and API, so we list, or at least document, all variables which are used
+	 * Core and API, so we list, or at least document, all variables which are used
 	 * by DataTables as private variables here. This also ensures that there is no
 	 * clashing of variable names and that they can easily referenced for reuse.
 	 */
@@ -9237,7 +9237,7 @@
 	
 	/**
 	 * Convert from camel case parameters to Hungarian notation. This is made public
-	 * for the extensions to provide the same ability as DataTables core to accept
+     * for the extensions to provide the same ability as DataTables Core to accept
 	 * either the 1.9 style Hungarian notation, or the 1.10+ style camelCase
 	 * parameters.
 	 *
@@ -9480,8 +9480,8 @@
 	DataTable.settings = [];
 
 	/**
-	 * Object models container, for the various models that DataTables has
-	 * available to it. These models define the objects that are used to hold
+     * Object Model container, for the various Model that DataTables has
+     * available to it. These Model define the objects that are used to hold
 	 * the active state and configuration of the table.
 	 *  @namespace
 	 */
@@ -13863,7 +13863,7 @@
 		/**
 		 * Buttons. For use with the Buttons extension for DataTables. This is
 		 * defined here so other extensions can define buttons regardless of load
-		 * order. It is _not_ used by DataTables core.
+         * order. It is _not_ used by DataTables Core.
 		 *
 		 *  @type object
 		 *  @default {}
@@ -15181,7 +15181,7 @@
 	 * State save event, fired when the table has changed state a new state save
 	 * is required. This event allows modification of the state saving object
 	 * prior to actually doing the save, including addition or other state
-	 * properties (for plug-ins) or modification of a DataTables core property.
+     * properties (for plug-ins) or modification of a DataTables Core property.
 	 *  @name DataTable#stateSaveParams.dt
 	 *  @event
 	 *  @param {event} e jQuery event object

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Core;
 
@@ -19,10 +20,12 @@ class BaseSQL
         $this->table = get_called_class();
     }
 
-    public function setId($id)
+    public function setId($id): self
     {
         $this->id = $id;
         $this->getOneBy(['id' => $id], true);
+
+        return $this;
     }
 
     /**
