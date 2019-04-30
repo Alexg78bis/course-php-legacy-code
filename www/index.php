@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 use Core\Routing;
 
-require 'conf.inc.php';
-
 function myAutoloader($class)
 {
     $class = substr($class, strpos($class, '\\') + 1);

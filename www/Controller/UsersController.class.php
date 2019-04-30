@@ -8,10 +8,6 @@ use Models\Users;
 
 class UsersController
 {
-    public function __construct()
-    {
-    }
-
     public function defaultAction(): void
     {
         echo 'users default';
