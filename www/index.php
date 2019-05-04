@@ -1,19 +1,40 @@
 <?php
+
 declare(strict_types=1);
 
 use Core\Routing;
 
+
+initialiseRoutingHistory();
+
+function initialiseRoutingHistory(): void
+{
+    $_SESSION['routingHistory'] = [];
+}
+
+function addRoutingHistory($page)
+{
+    $_SESSION['routingHistory'][] = [
+        'page' => $page,
+        'time' => date('Y-m-d h:i:s') //todo : calculer temps chargement de chaque page
+    ];
+}
+
 function myAutoloader($class)
 {
     $class = substr($class, strpos($class, '\\') + 1);
-    $classPath = 'Core/' . $class . '.class.php';
-    $classModel = 'Model/' . $class . '.class.php';
+    $classPath = 'Core/' . $class . '.php';
+    $classModel = 'Model/' . $class . '.php';
+    $classRepository = 'Repository/' . $class . '.php';
+
+    addRoutingHistory($class);
+
     if (file_exists($classPath)) {
-        include $classPath;
-    } else {
-        if (file_exists($classModel)) {
-            include $classModel;
-        }
+        require_once $classPath;
+    } elseif (file_exists($classModel)) {
+        require_once $classModel;
+    } elseif (file_exists($classRepository)) {
+        require_once $classRepository;
     }
 }
 

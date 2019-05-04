@@ -2,23 +2,38 @@
 
 use Controller\PagesController;
 use Controller\UsersController;
-use Models\Users;
+use Core\BaseSQL;
+use Model\UserInterface;
+use Model\Users;
+use Repository\UserRepository;
+use Repository\UserRepositoryInterface;
 
 return [
-    Users::class => function ($container) {
+    BaseSQL::class => function (array $container, $class) {
         $host = $container['config']['database']['host'];
         $driver = $container['config']['database']['driver'];
         $name = $container['config']['database']['name'];
         $user = $container['config']['database']['user'];
         $password = $container['config']['database']['password'];
 
-        return new Users($driver, $host, $name, $user, $password);
+        return new BaseSQL($host, $driver, $name, $user, $password, $class);
     },
-    UsersController::class => function ($container) {
-        $userModel = $container[Users::class]($container);
-        return new UsersController($userModel);
+
+    UserRepositoryInterface::class => function (array $container) {
+        $class = $container[UserInterface::class]($container);
+        $baseSQL = $container[BaseSQL::class]($container, $class);
+        return new UserRepository($baseSQL);
     },
-    PagesController::class => function ($container) {
+    UserInterface::class => function (array $container) {
+        return new Users();
+    },
+    UsersController::class => function (array $container) {
+        $userModel = $container[UserInterface::class]($container);
+        $userRepository = $container[UserRepositoryInterface::class]($container);
+
+        return new UsersController($userModel, $userRepository);
+    },
+    PagesController::class => function () {
         return new PagesController();
-    }
+    },
 ];

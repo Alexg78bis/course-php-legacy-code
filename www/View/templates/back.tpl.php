@@ -186,6 +186,16 @@
     </div>
 </div>
 
+<div>
+    <h1>Historique</h1>
+
+    <ol>
+        <?php foreach ($_SESSION['routingHistory'] as $route): ?>
+            <li><?= $route['page'] ?></li>
+        <?php endforeach; ?>
+    </ol>
+</div>
+
 <!-- Bootstrap core JavaScript-->
 <script src="public/vendor/jquery/jquery.min.js"></script>
 <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -11,6 +11,7 @@ body {
 
 #wrapper {
   display: flex;
+
   #content-wrapper {
     overflow-x: hidden;
     width: 100%;
@@ -18,17 +19,20 @@ body {
     padding-bottom: $sticky-footer-height;
   }
 }
+
 // Fixed Nav Option
 body.fixed-nav {
   #content-wrapper {
     margin-top: $navbar-base-height;
     padding-left: $sidebar-collapsed-width;
   }
+
   &.sidebar-toggled {
     #content-wrapper {
       padding-left: 0;
     }
   }
+
   @media(min-width: 768px) {
     #content-wrapper {
       padding-left: $sidebar-base-width;
@@ -53,13 +57,16 @@ body.fixed-nav {
   color: $white;
   background: fade-out($gray-800, .5);
   line-height: 46px;
+
   &:focus,
   &:hover {
     color: white;
   }
+
   &:hover {
     background: $gray-800;
   }
+
   i {
     font-weight: 800;
   }

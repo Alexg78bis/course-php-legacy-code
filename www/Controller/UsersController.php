@@ -1,13 +1,26 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controller;
 
+use Core\Validator;
 use Core\View;
-use Models\Users;
+use Model\UserForm;
+use Model\UserInterface;
+use Repository\UserRepository;
 
 class UsersController
 {
+    private $user;
+    private $userRepository;
+
+    public function __construct(UserInterface $user, UserRepository $userRepository)
+    {
+        $this->user = $user;
+        $this->userRepository = $userRepository;
+    }
+
     public function defaultAction(): void
     {
         echo 'users default';
@@ -15,8 +28,8 @@ class UsersController
 
     public function addAction(): void
     {
-        $user = new Users();
-        $form = $user->getRegisterForm();
+        $userForm = new UserForm();
+        $form = $userForm->getRegisterForm();
 
         $v = new View('addUser', 'front');
         $v->assign('form', $form);
@@ -24,8 +37,8 @@ class UsersController
 
     public function saveAction(): void
     {
-        $user = new Users();
-        $form = $user->getRegisterForm();
+        $userForm = new UserForm();
+        $form = $userForm->getRegisterForm();
         $method = strtoupper($form['config']['method']);
         $data = $GLOBALS['_' . $method];
 
@@ -34,22 +47,21 @@ class UsersController
             $form['errors'] = $validator->errors;
 
             if (empty($errors)) {
-                $user->setFirstname($data['firstname']);
-                $user->setLastname($data['lastname']);
-                $user->setEmail($data['email']);
-                $user->setPwd($data['pwd']);
-                $user->save();
+                $this->user->setFirstname($data['firstname']);
+                $this->user->setLastname($data['lastname']);
+                $this->user->setEmail($data['email']);
+                $this->user->setPwd($data['pwd']);
             }
         }
 
-        $v = new View('addUser', 'front');
-        $v->assign('form', $form);
+        $view = new View('addUser', 'front');
+        $view->assign('form', $form);
     }
 
     public function loginAction(): void
     {
-        $user = new Users();
-        $form = $user->getLoginForm();
+        $userForm = new UserForm();
+        $form = $userForm->getLoginForm();
 
         $method = strtoupper($form['config']['method']);
         $data = $GLOBALS['_' . $method];
@@ -68,7 +80,6 @@ class UsersController
     }
 
     public function forgetPasswordAction(): void
-
     {
         $v = new View('forgetPasswordUser', 'front');
     }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Core;
@@ -16,7 +17,7 @@ class Routing
             }
             $c = ucfirst($routes[$slug]['controller']) . 'Controller';
             $a = $routes[$slug]['action'] . 'Action';
-            $cPath = 'Controller/' . $c . '.class.php';
+            $cPath = 'Controller/' . $c . '.php';
         } else {
             return ['c' => null, 'a' => null, 'cPath' => null];
         }
@@ -24,7 +25,7 @@ class Routing
         return ['c' => $c, 'a' => $a, 'cPath' => $cPath];
     }
 
-    public static function getSlug($c, $a): ?array
+    public static function getSlug($c, $a): ?string
     {
         $routes = yaml_parse_file(self::$routeFile);
 
