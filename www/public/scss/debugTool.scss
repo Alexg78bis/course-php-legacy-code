@@ -1,30 +1,47 @@
 body {
-  padding-top: 30px !important;
+  padding-top: 40px !important;
 }
 
 .debugTool {
-  background-color: rgba(#131314, 1);
-  backdrop-filter: blur(50px);
+  background-color: #131314;
   color: #fafafa;
   position: fixed;
   z-index: 999;
   top: 0;
-  height: 30px;
+  height: auto;
+  max-height: 40px;
   width: 100%;
   overflow: hidden;
   padding: 0 20px;
-
   transition: all .4s;
 
+
   h1 {
-    line-height: 30px;
+    line-height: 40px;
     font-size: 20px;
   }
 
   &:hover {
-    height: 50vh;
+    max-height: 60vh;
+  }
+
+
+  .debug {
     overflow: scroll;
-    background-color: rgba(#131314, .8);
-    padding: 20px 20px;
+    width: 100%;
+    max-height: calc(60vh - 40px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    h3 {
+      position: sticky;
+      background-color: #131314;
+      text-align: center;
+      top: 0;
+    }
+
+    pre {
+      color: white;
+    }
   }
 }

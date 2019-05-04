@@ -10,6 +10,7 @@ initialiseRoutingHistory();
 function initialiseRoutingHistory(): void
 {
     $_SESSION['routingHistory'] = [];
+    $_SESSION['sqlHistory'] = [];
 }
 
 function addRoutingHistory($page)

@@ -24,7 +24,6 @@ abstract class Repository implements RepositoryInterface
         } catch (Exception $e) {
             die('Erreur SQL : ' . $e->getMessage());
         }
-
     }
 
     public function getOne()
@@ -59,8 +58,6 @@ abstract class Repository implements RepositoryInterface
                 implode(',:', array_keys($dataObject)) . ')';
 
             $query = $this->pdo->prepare($sql);
-
-            $query->execute($dataObject);
         } else {
             $sqlUpdate = [];
             foreach ($dataObject as $key => $value) {
@@ -72,12 +69,21 @@ abstract class Repository implements RepositoryInterface
             $sql = 'UPDATE ' . $this->table . ' SET ' . implode(',', $sqlUpdate) . ' WHERE id=:id';
 
             $query = $this->pdo->prepare($sql);
-            return $query->execute($dataObject);
+
         }
 
-        return false;
-
+        $this->log($query->queryString, $dataObject);
+        return $query->execute($dataObject);
     }
 
+
+    private function log(string $sql, array $params): void
+    {
+        $_SESSION['sqlHistory'][] = [
+            'page' => explode('\\', get_called_class())[1],
+            'sql' => $sql,
+            'params' => $params,
+        ];
+    }
 
 }

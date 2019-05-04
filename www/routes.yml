@@ -10,7 +10,6 @@
     controller: User
     action: add
 
-
 "/enregistrer_un_utilisateur":
     controller: User
     action: save
