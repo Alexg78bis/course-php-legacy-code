@@ -14,10 +14,7 @@ function initialiseRoutingHistory(): void
 
 function addRoutingHistory($page)
 {
-    $_SESSION['routingHistory'][] = [
-        'page' => $page,
-        'time' => date('Y-m-d h:i:s') //todo : calculer temps chargement de chaque page
-    ];
+    $_SESSION['routingHistory'][] = $page;
 }
 
 function myAutoloader($class)

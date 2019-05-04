@@ -24,6 +24,9 @@
 
 <body class="bg-dark">
 
+<?php include './View/debugTools.php' ?>
+
+
 <div class="container">
     <?php include $this->v; ?>
 </div>

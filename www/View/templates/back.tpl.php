@@ -27,6 +27,8 @@
 
 <body id="page-top">
 
+<?php include './View/debugTools.php' ?>
+
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
     <a class="navbar-brand mr-1" href="index.html">Start Bootstrap</a>
@@ -184,16 +186,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div>
-    <h1>Historique</h1>
-
-    <ol>
-        <?php foreach ($_SESSION['routingHistory'] as $route): ?>
-            <li><?= $route['page'] ?></li>
-        <?php endforeach; ?>
-    </ol>
 </div>
 
 <!-- Bootstrap core JavaScript-->

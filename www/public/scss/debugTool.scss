@@ -1,0 +1,30 @@
+body {
+  padding-top: 30px !important;
+}
+
+.debugTool {
+  background-color: rgba(#131314, 1);
+  backdrop-filter: blur(50px);
+  color: #fafafa;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  height: 30px;
+  width: 100%;
+  overflow: hidden;
+  padding: 0 20px;
+
+  transition: all .4s;
+
+  h1 {
+    line-height: 30px;
+    font-size: 20px;
+  }
+
+  &:hover {
+    height: 50vh;
+    overflow: scroll;
+    background-color: rgba(#131314, .8);
+    padding: 20px 20px;
+  }
+}
