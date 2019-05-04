@@ -10,7 +10,7 @@ use Model\UserForm;
 use Model\UserInterface;
 use Repository\UserRepository;
 
-class UsersController
+class UserController
 {
     private $user;
     private $userRepository;
@@ -51,6 +51,7 @@ class UsersController
                 $this->user->setLastname($data['lastname']);
                 $this->user->setEmail($data['email']);
                 $this->user->setPwd($data['pwd']);
+                $this->userRepository->add($this->user);
             }
         }
 

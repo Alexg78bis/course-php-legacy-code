@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Model;
 
-class Users implements UserInterface
+class User implements UserInterface
 {
     public $id = null;
     public $firstname;

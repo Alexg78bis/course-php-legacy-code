@@ -3,22 +3,22 @@
     action: default
 
 "/liste_des_utilisateurs":
-    controller: Users
+    controller: User
     action: default
 
 "/ajouter_un_utilisateur":
-    controller: Users
+    controller: User
     action: add
 
 
 "/enregistrer_un_utilisateur":
-    controller: Users
+    controller: User
     action: save
 
 "/connexion":
-    controller: Users
+    controller: User
     action: login
 
 "/mot_de_passe_oublie":
-    controller: Users
+    controller: User
     action: forgetPassword

@@ -1,10 +1,10 @@
 <?php
 
 use Controller\PagesController;
-use Controller\UsersController;
+use Controller\UserController;
 use Core\BaseSQL;
+use Model\User;
 use Model\UserInterface;
-use Model\Users;
 use Repository\UserRepository;
 use Repository\UserRepositoryInterface;
 
@@ -18,20 +18,33 @@ return [
 
         return new BaseSQL($host, $driver, $name, $user, $password, $class);
     },
+    PDO::class => function (array $container) {
+        $host = $container['config']['database']['host'];
+        $driver = $container['config']['database']['driver'];
+        $name = $container['config']['database']['name'];
+        $user = $container['config']['database']['user'];
+        $password = $container['config']['database']['password'];
+
+        return new PDO($driver . ':host=' . $host . ';dbname=' . $name, $user, $password);
+    },
+
 
     UserRepositoryInterface::class => function (array $container) {
-        $class = $container[UserInterface::class]($container);
-        $baseSQL = $container[BaseSQL::class]($container, $class);
-        return new UserRepository($baseSQL);
+        $pdo = $container[PDO::class]($container);
+        return new UserRepository($pdo);
     },
+
+
     UserInterface::class => function (array $container) {
-        return new Users();
+        return new User();
     },
-    UsersController::class => function (array $container) {
+
+
+    UserController::class => function (array $container) {
         $userModel = $container[UserInterface::class]($container);
         $userRepository = $container[UserRepositoryInterface::class]($container);
 
-        return new UsersController($userModel, $userRepository);
+        return new UserController($userModel, $userRepository);
     },
     PagesController::class => function () {
         return new PagesController();

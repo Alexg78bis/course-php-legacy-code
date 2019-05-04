@@ -4,17 +4,13 @@ declare(strict_types=1);
 
 namespace Repository;
 
-use Core\BaseSQL;
+use PDO;
 
-class UserRepository extends Repository implements UserRepositoryInterface
+final class UserRepository extends Repository implements UserRepositoryInterface
 {
-    /**
-     * UserRepository constructor.
-     * @param BaseSQL $baseSQL
-     */
-    public function __construct(BaseSQL $baseSQL)
+    public function __construct(PDO $PDO)
     {
-        parent::__construct($baseSQL);
+        parent::__construct($PDO);
+        $this->table = 'Users';
     }
-
 }

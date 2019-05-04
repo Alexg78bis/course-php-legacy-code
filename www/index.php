@@ -35,6 +35,7 @@ function myAutoloader($class)
     }
 }
 
+
 // La fonction myAutoloader est lancé sur la classe appelée n'est pas trouvée
 spl_autoload_register('myAutoloader');
 
