@@ -59,26 +59,7 @@ class UserController
         $view->assign('form', $form);
     }
 
-    public function loginAction(): void
-    {
-        $userForm = new UserForm();
-        $form = $userForm->getLoginForm();
 
-        $method = strtoupper($form['config']['method']);
-        $data = $GLOBALS['_' . $method];
-        if ($_SERVER['REQUEST_METHOD'] == $method && !empty($data)) {
-            $validator = new Validator($form, $data);
-            $form['errors'] = $validator->errors;
-
-            if (empty($errors)) {
-                $token = md5(substr(uniqid() . time(), 4, 10) . 'mxu(4il');
-                // TODO: connexion
-            }
-        }
-
-        $v = new View('loginUser', 'front');
-        $v->assign('form', $form);
-    }
 
     public function forgetPasswordAction(): void
     {

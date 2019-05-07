@@ -101,7 +101,7 @@
         <li class="nav-item active">
             <a class="nav-link" href="index.html">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span>
+                <span><s>Dashboard</s></span>
             </a>
         </li>
         <li class="nav-item dropdown">
@@ -112,22 +112,26 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <h6 class="dropdown-header">Login Screens:</h6>
-                <a class="dropdown-item" href="/connexion">Connexion</a>
-                <a class="dropdown-item" href="/liste_des_utilisateurs">Liste utilisateurs</a>
+                <?php if (isset($_SESSION['user'])): ?>
+                    <a class="dropdown-item" href="/deconnexion">Déconnexion</a>
+                <?php else: ?>
+                    <a class="dropdown-item" href="/connexion">Connexion</a>
+                <?php endif; ?>
+                <a class="dropdown-item" href="/liste_des_utilisateurs"><s>Liste utilisateurs</s></a>
                 <a class="dropdown-item" href="/ajouter_un_utilisateur">Ajouter un utilisateur</a>
-                <a class="dropdown-item" href="/mot_de_passe_oublie">Mot de passe oublié</a>
+                <a class="dropdown-item" href="/mot_de_passe_oublie"><s>Mot de passe oublié</s></a>
                 <div class="dropdown-divider"></div>
             </div>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="charts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
+                <span><s>Charts</s></span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="tables.html">
                 <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
+                <span><s>Tables</s></span></a>
         </li>
     </ul>
 

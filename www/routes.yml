@@ -15,8 +15,12 @@
     action: save
 
 "/connexion":
-    controller: User
+    controller: Security
     action: login
+
+"/deconnexion":
+    controller: Security
+    action: disconnect
 
 "/mot_de_passe_oublie":
     controller: User

@@ -1,6 +1,7 @@
 <?php
 
 use Controller\PagesController;
+use Controller\SecurityController;
 use Controller\UserController;
 use Core\BaseSQL;
 use Model\User;
@@ -31,7 +32,8 @@ return [
 
     UserRepositoryInterface::class => function (array $container) {
         $pdo = $container[PDO::class]($container);
-        return new UserRepository($pdo);
+        $user = $container[UserInterface::class]($container);
+        return new UserRepository($pdo, $user);
     },
 
 
@@ -40,6 +42,12 @@ return [
     },
 
 
+    SecurityController::class => function (array $container) {
+        $userModel = $container[UserInterface::class]($container);
+        $userRepository = $container[UserRepositoryInterface::class]($container);
+
+        return new SecurityController($userModel, $userRepository);
+    },
     UserController::class => function (array $container) {
         $userModel = $container[UserInterface::class]($container);
         $userRepository = $container[UserRepositoryInterface::class]($container);

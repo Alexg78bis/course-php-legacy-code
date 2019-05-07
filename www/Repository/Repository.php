@@ -1,19 +1,16 @@
 <?php
 declare(strict_types=1);
 
-
 namespace Repository;
-
 
 use http\Exception;
 use PDO;
 
 abstract class Repository implements RepositoryInterface
 {
-
     private $pdo;
     protected $table;
-
+    protected $class;
 
     public function __construct(PDO $PDO)
     {
@@ -36,12 +33,27 @@ abstract class Repository implements RepositoryInterface
         return [];
     }
 
-    public function getOneBy(string $needle, string $where)
+    public function getOneBy(array $where)
     {
-        // TODO: Implement getOneBy() method.
+
+        $sqlWhere = [];
+        foreach ($where as $key => $value) {
+            $sqlWhere[] = $key . '=:' . $key;
+        }
+        $sql = ' SELECT * FROM ' . $this->table . ' WHERE  ' . implode(' AND ', $sqlWhere) . ';';
+        $query = $this->pdo->prepare($sql);
+
+        $query->setFetchMode(PDO::FETCH_INTO, $this->class);
+
+
+        $query->execute($where);
+
+
+        return $query->fetch();
+
     }
 
-    public function getAllBy(string $needle, string $where): array
+    public function getAllBy(array $where): array
     {
         // TODO: Implement getAllBy() method.
         return [];
@@ -85,5 +97,4 @@ abstract class Repository implements RepositoryInterface
             'params' => $params,
         ];
     }
-
 }

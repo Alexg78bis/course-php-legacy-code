@@ -43,4 +43,62 @@ class User implements UserInterface
     {
         $this->status = $status;
     }
+
+    /**
+     * @return null
+     */
+    public function getId(): int
+    {
+        return (int)$this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstname(): string
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastname(): string
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPwd(): string
+    {
+        return $this->pwd;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRole(): int
+    {
+        return $this->role;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+
 }

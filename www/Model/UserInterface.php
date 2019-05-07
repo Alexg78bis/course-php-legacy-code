@@ -15,4 +15,18 @@ interface UserInterface
     public function setRole($role);
 
     public function setStatus($status);
+
+    public function getId(): int;
+
+    public function getFirstname(): string;
+
+    public function getLastname(): string;
+
+    public function getEmail(): string;
+
+    public function getPwd(): string;
+
+    public function getRole(): int;
+
+    public function getStatus(): int;
 }

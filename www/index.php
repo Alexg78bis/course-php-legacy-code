@@ -5,6 +5,8 @@ declare(strict_types=1);
 use Core\Routing;
 
 
+session_start();
+
 initialiseRoutingHistory();
 
 function initialiseRoutingHistory(): void
@@ -49,8 +51,9 @@ $container['config'] = require 'config/global.php';
 $container += require 'config/di.global.php';
 
 // Vérifie l'existence du fichier et de la classe pour charger le controlleur
+
 if (file_exists($cPath)) {
-    include $cPath;
+    require_once $cPath;
     if (class_exists('\\Controller\\' . $c)) {
         //instancier dynamiquement le controller
         $cObject = $container['Controller\\' . $c]($container);
