@@ -9,9 +9,9 @@ use PDO;
 
 final class UserRepository extends Repository implements UserRepositoryInterface
 {
-    public function __construct(PDO $PDO, UserInterface $user)
+    public function __construct(PDO $PDO, LoggerRepositoryInferface $loggerRepository, UserInterface $user)
     {
-        parent::__construct($PDO);
+        parent::__construct($PDO, $loggerRepository);
         $this->table = 'Users';
         $this->class = $user;
     }
@@ -21,6 +21,10 @@ final class UserRepository extends Repository implements UserRepositoryInterface
         return parent::getOneBy($where);
     }
 
+    public function hashPassword(string $password): string
+    {
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
 
 }
 

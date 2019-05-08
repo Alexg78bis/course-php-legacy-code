@@ -6,6 +6,8 @@ use Controller\UserController;
 use Core\BaseSQL;
 use Model\User;
 use Model\UserInterface;
+use Repository\LoggerRepository;
+use Repository\LoggerRepositoryInferface;
 use Repository\UserRepository;
 use Repository\UserRepositoryInterface;
 
@@ -32,8 +34,12 @@ return [
 
     UserRepositoryInterface::class => function (array $container) {
         $pdo = $container[PDO::class]($container);
+        $logger = $container[LoggerRepositoryInferface::class]($container);
         $user = $container[UserInterface::class]($container);
-        return new UserRepository($pdo, $user);
+        return new UserRepository($pdo, $logger, $user);
+    },
+    LoggerRepositoryInferface::class => function (array $container) {
+        return new LoggerRepository();
     },
 
 

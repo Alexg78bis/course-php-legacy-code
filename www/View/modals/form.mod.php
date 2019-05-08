@@ -1,4 +1,4 @@
-<?php $data = ('POST' == $config['config']['method']) ? $_POST : $_GET; ?>
+<?php $data = ($config['config']['method'] === 'POST') ? $_POST : $_GET; ?>
 
 <?php if (!empty($config['errors'])): ?>
     <div class="alert alert-danger">

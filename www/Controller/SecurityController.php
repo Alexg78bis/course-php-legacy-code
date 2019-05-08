@@ -27,6 +27,9 @@ class SecurityController
         $this->userRepository = $userRepository;
     }
 
+    /**
+     * Login Page
+     */
     public function loginAction(): void
     {
         $userForm = new UserForm();
@@ -54,14 +57,33 @@ class SecurityController
         $v->assign('form', $form);
     }
 
+    /**
+     * Disconnect Page
+     */
     public function disconnectAction(): void
     {
         session_destroy();
         header('Location: /connexion');
     }
 
+    /**
+     * Add a new user page
+     */
+    public function addAction(): void
+    {
+        $userForm = new UserForm();
+        $form = $userForm->getRegisterForm();
+
+        $v = new View('addUser', 'front');
+        $v->assign('form', $form);
+    }
+
+    /**
+     * function called by the add user form
+     */
     public function saveAction(): void
     {
+
         $userForm = new UserForm();
         $form = $userForm->getRegisterForm();
         $method = strtoupper($form['config']['method']);
@@ -75,7 +97,7 @@ class SecurityController
                 $this->user->setFirstname($data['firstname']);
                 $this->user->setLastname($data['lastname']);
                 $this->user->setEmail($data['email']);
-                $this->user->setPwd($data['pwd']);
+                $this->user->setPwd($this->userRepository->hashPassword($data['pwd']));
                 $this->userRepository->add($this->user);
             }
         }
@@ -84,18 +106,11 @@ class SecurityController
         $view->assign('form', $form);
     }
 
-    public function addAction(): void
-    {
-        $userForm = new UserForm();
-        $form = $userForm->getRegisterForm();
-
-        $v = new View('addUser', 'front');
-        $v->assign('form', $form);
-    }
-
+    /**
+     * Forget password page
+     */
     public function forgetPasswordAction(): void
     {
         $v = new View('forgetPasswordUser', 'front');
     }
-
 }

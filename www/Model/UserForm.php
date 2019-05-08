@@ -11,7 +11,7 @@ class UserForm
         return [
             'config' => [
                 'method' => 'POST',
-                'action' => Routing::getSlug('User', 'save'),
+                'action' => Routing::getSlug('Security', 'save'),
                 'class' => '',
                 'id' => '',
                 'submit' => "S'inscrire",

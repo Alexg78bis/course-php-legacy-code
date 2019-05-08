@@ -12,21 +12,22 @@ abstract class Repository implements RepositoryInterface
     protected $table;
     protected $class;
 
-    public function __construct(PDO $PDO)
-    {
+    /**
+     * @var LoggerRepositoryInferface
+     */
+    private $loggerRepository;
 
+    public function __construct(PDO $PDO, LoggerRepositoryInferface $loggerRepository)
+    {
         try {
             $this->pdo = $PDO;
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (Exception $e) {
             die('Erreur SQL : ' . $e->getMessage());
         }
+        $this->loggerRepository = $loggerRepository;
     }
 
-    public function getOne()
-    {
-        // TODO: Implement getOne() method.
-    }
 
     public function getAll(): ?array
     {
@@ -35,7 +36,7 @@ abstract class Repository implements RepositoryInterface
         $query->setFetchMode(PDO::FETCH_CLASS, get_class($this->class));
         $query->execute();
 
-        $this->log($sql, []);
+        $this->loggerRepository->log($query->queryString, []);
 
 
         return $query->fetchAll();
@@ -43,7 +44,6 @@ abstract class Repository implements RepositoryInterface
 
     public function getOneBy(array $where)
     {
-
         $sqlWhere = [];
         foreach ($where as $key => $value) {
             $sqlWhere[] = $key . '=:' . $key;
@@ -56,15 +56,9 @@ abstract class Repository implements RepositoryInterface
 
         $query->execute($where);
 
-
+        $this->loggerRepository->log($query->queryString, $where);
         return $query->fetch();
 
-    }
-
-    public function getAllBy(array $where): array
-    {
-        // TODO: Implement getAllBy() method.
-        return [];
     }
 
     public function add($object): bool
@@ -92,17 +86,8 @@ abstract class Repository implements RepositoryInterface
 
         }
 
-        $this->log($query->queryString, $dataObject);
+        $this->loggerRepository->log($query->queryString, $dataObject);
         return $query->execute($dataObject);
     }
 
-
-    private function log(string $sql, array $params): void
-    {
-        $_SESSION['sqlHistory'][] = [
-            'page' => explode('\\', get_called_class())[1],
-            'sql' => $sql,
-            'params' => $params,
-        ];
-    }
 }
