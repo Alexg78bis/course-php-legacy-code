@@ -35,4 +35,3 @@
     </div>
     <div class="card-footer small text-muted">Mis à jour le <?= date('d/m/Y à H:i') ?></div>
 </div>
-}
