@@ -4,14 +4,14 @@
 
 "/liste_des_utilisateurs":
     controller: User
-    action: default
+    action: list
 
 "/ajouter_un_utilisateur":
-    controller: User
+    controller: Security
     action: add
 
 "/enregistrer_un_utilisateur":
-    controller: User
+    controller: Security
     action: save
 
 "/connexion":
@@ -23,5 +23,5 @@
     action: disconnect
 
 "/mot_de_passe_oublie":
-    controller: User
+    controller: Security
     action: forgetPassword

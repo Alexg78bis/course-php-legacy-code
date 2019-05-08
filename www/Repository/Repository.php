@@ -28,9 +28,17 @@ abstract class Repository implements RepositoryInterface
         // TODO: Implement getOne() method.
     }
 
-    public function getAll(): array
+    public function getAll(): ?array
     {
-        return [];
+        $sql = ' SELECT * FROM ' . $this->table . ';';
+        $query = $this->pdo->prepare($sql);
+        $query->setFetchMode(PDO::FETCH_CLASS, get_class($this->class));
+        $query->execute();
+
+        $this->log($sql, []);
+
+
+        return $query->fetchAll();
     }
 
     public function getOneBy(array $where)

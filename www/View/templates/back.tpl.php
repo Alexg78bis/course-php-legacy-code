@@ -99,9 +99,9 @@
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="/">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span><s>Dashboard</s></span>
+                <span>Dashboard</span>
             </a>
         </li>
         <li class="nav-item dropdown">
@@ -117,22 +117,14 @@
                 <?php else: ?>
                     <a class="dropdown-item" href="/connexion">Connexion</a>
                 <?php endif; ?>
-                <a class="dropdown-item" href="/liste_des_utilisateurs"><s>Liste utilisateurs</s></a>
+                <a class="dropdown-item" href="/liste_des_utilisateurs">Liste utilisateurs</a>
                 <a class="dropdown-item" href="/ajouter_un_utilisateur">Ajouter un utilisateur</a>
                 <a class="dropdown-item" href="/mot_de_passe_oublie"><s>Mot de passe oublié</s></a>
                 <div class="dropdown-divider"></div>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span><s>Charts</s></span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span><s>Tables</s></span></a>
-        </li>
+
+
     </ul>
 
     <div id="content-wrapper">
