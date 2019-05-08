@@ -39,7 +39,7 @@
                            value="<?php echo $data[$key] ?? ''; ?>"
                     >
 
-                    <label for="<?php echo $value['id']; ?>" "><?php echo $value['placeholder']; ?></label>
+                    <label for="<?= $value['id'] ?>"><?= $value['placeholder'] ?></label>
 
                 <?php endif; ?>
 
