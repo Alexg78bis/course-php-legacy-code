@@ -2,11 +2,11 @@
 
 namespace Model;
 
+use ValueObject\Name;
+
 interface UserInterface
 {
-    public function setFirstname($firstname);
-
-    public function setLastname($lastname);
+    public function setName(Name $name);
 
     public function setEmail($email);
 
@@ -18,9 +18,7 @@ interface UserInterface
 
     public function getId(): int;
 
-    public function getFirstname(): string;
-
-    public function getLastname(): string;
+    public function getName(): Name;
 
     public function getEmail(): string;
 

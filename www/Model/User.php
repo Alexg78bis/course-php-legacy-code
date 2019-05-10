@@ -1,27 +1,22 @@
 <?php
-
 declare(strict_types=1);
 
 namespace Model;
 
+use ValueObject\Name;
+
 class User implements UserInterface
 {
-    public $id = null;
-    public $firstname;
-    public $lastname;
-    public $email;
-    public $pwd;
-    public $role = 1;
-    public $status = 0;
+    private $id = null;
+    private $name;
+    private $email;
+    private $pwd;
+    private $role = 1;
+    private $status = 0;
 
-    public function setFirstname($firstname)
+    public function setName(Name $name)
     {
-        $this->firstname = ucwords(strtolower(trim($firstname)));
-    }
-
-    public function setLastname($lastname)
-    {
-        $this->lastname = strtoupper(trim($lastname));
+        $this->name = $name;
     }
 
     public function setEmail($email)
@@ -29,6 +24,7 @@ class User implements UserInterface
         $this->email = strtolower(trim($email));
     }
 
+    // TODO: move to repository
     public function setPwd($pwd)
     {
         $this->pwd = password_hash($pwd, PASSWORD_DEFAULT);
@@ -52,20 +48,9 @@ class User implements UserInterface
         return (int)$this->id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getFirstname(): string
+    public function getName(): Name
     {
-        return $this->firstname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLastname(): string
-    {
-        return $this->lastname;
+        return $this->name;
     }
 
     /**
@@ -99,6 +84,5 @@ class User implements UserInterface
     {
         return $this->status;
     }
-
 
 }
