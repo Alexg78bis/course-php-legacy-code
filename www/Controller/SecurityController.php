@@ -83,7 +83,6 @@ class SecurityController
      */
     public function saveAction(): void
     {
-
         $userForm = new UserForm();
         $form = $userForm->getRegisterForm();
         $method = strtoupper($form['config']['method']);

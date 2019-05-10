@@ -29,11 +29,11 @@ class Routing
     {
         $routes = yaml_parse_file(self::$routeFile);
 
-        foreach ($routes as $slug => $action) {
-            if (!empty($action['controller']) &&
-                !empty($action['action']) &&
-                $action['controller'] == $controller &&
-                $action['action'] == $action) {
+        foreach ($routes as $slug => $controllerAction) {
+            if (!empty($controllerAction['controller']) &&
+                !empty($controllerAction['action']) &&
+                $controllerAction['controller'] == $controller &&
+                $controllerAction['action'] == $action) {
                 return $slug;
             }
         }
