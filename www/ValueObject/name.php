@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ValueObject;
 
-class name
+class Name
 {
     /**
      * @var string
