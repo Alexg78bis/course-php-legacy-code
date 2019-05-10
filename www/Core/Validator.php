@@ -45,27 +45,49 @@ class Validator
         }
     }
 
-    public static function notEmpty($string)
+    /**
+     * @param $string
+     * @return bool
+     */
+    public static function notEmpty($string): bool
     {
         return !empty(trim($string));
     }
 
-    public static function minLength($string, $length)
+    /**
+     * @param $string
+     * @param $length
+     * @return bool
+     */
+    public static function minLength($string, $length): bool
     {
         return strlen(trim($string)) >= $length;
     }
 
-    public static function maxLength($string, $length)
+    /**
+     * @param $string
+     * @param $length
+     * @return bool
+     */
+    public static function maxLength($string, $length): bool
     {
         return strlen(trim($string)) <= $length;
     }
 
-    public static function checkEmail($string)
+    /**
+     * @param $string
+     * @return bool
+     */
+    public static function checkEmail($string): bool
     {
         return filter_var(trim($string), FILTER_VALIDATE_EMAIL);
     }
 
-    public static function checkPassword($string)
+    /**
+     * @param $string
+     * @return bool
+     */
+    public static function checkPassword($string): bool
     {
         return
             preg_match('#[a-z]#', $string) &&
