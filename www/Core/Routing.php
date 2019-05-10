@@ -15,25 +15,25 @@ class Routing
             if (empty($routes[$slug]['controller']) || empty($routes[$slug]['action'])) {
                 die('Il y a une erreur dans le fichier routes.yml');
             }
-            $c = ucfirst($routes[$slug]['controller']) . 'Controller';
-            $a = $routes[$slug]['action'] . 'Action';
-            $cPath = 'Controller/' . $c . '.php';
+            $controller = ucfirst($routes[$slug]['controller']) . 'Controller';
+            $action = $routes[$slug]['action'] . 'Action';
+            $cPath = 'Controller/' . $controller . '.php';
         } else {
-            return ['c' => null, 'a' => null, 'cPath' => null];
+            return ['controller' => null, 'action' => null, 'controllerPath' => null];
         }
 
-        return ['c' => $c, 'a' => $a, 'cPath' => $cPath];
+        return ['controller' => $controller, 'action' => $action, 'controllerPath' => $cPath];
     }
 
-    public static function getSlug($c, $a): ?string
+    public static function getSlug($controller, $action): ?string
     {
         $routes = yaml_parse_file(self::$routeFile);
 
-        foreach ($routes as $slug => $cAndA) {
-            if (!empty($cAndA['controller']) &&
-                !empty($cAndA['action']) &&
-                $cAndA['controller'] == $c &&
-                $cAndA['action'] == $a) {
+        foreach ($routes as $slug => $action) {
+            if (!empty($action['controller']) &&
+                !empty($action['action']) &&
+                $action['controller'] == $controller &&
+                $action['action'] == $action) {
                 return $slug;
             }
         }

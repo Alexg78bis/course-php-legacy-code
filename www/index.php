@@ -46,27 +46,28 @@ spl_autoload_register('myAutoloader');
 $slug = explode('?', $_SERVER['REQUEST_URI'])[0];
 $routes = Routing::getRoute($slug);
 extract($routes);
+
 $container = [];
 $container['config'] = require 'config/global.php';
 $container += require 'config/di.global.php';
 
 // Vérifie l'existence du fichier et de la classe pour charger le controlleur
 
-if (file_exists($cPath)) {
-    require_once $cPath;
-    if (class_exists('\\Controller\\' . $c)) {
+if (file_exists($controllerPath)) {
+    require_once $controllerPath;
+    if (class_exists('\\Controller\\' . $controller)) {
         //instancier dynamiquement le controller
-        $cObject = $container['Controller\\' . $c]($container);
+        $cObject = $container['Controller\\' . $controller]($container);
         //vérifier que la méthode (l'action) existe
-        if (method_exists($cObject, $a)) {
+        if (method_exists($cObject, $action)) {
             //appel dynamique de la méthode
-            $cObject->$a();
+            $cObject->$action();
         } else {
-            die('La methode ' . $a . " n'existe pas");
+            die('La methode ' . $action . " n'existe pas");
         }
     } else {
-        die('La class controller ' . $c . " n'existe pas");
+        die('La class controller ' . $controller . " n'existe pas");
     }
 } else {
-    die('Le fichier controller ' . $c . " n'existe pas");
+    die('Le fichier controller ' . $controller . " n'existe pas");
 }

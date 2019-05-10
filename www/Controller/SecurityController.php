@@ -53,8 +53,8 @@ class SecurityController
             }
         }
 
-        $v = new View('loginUser', 'front');
-        $v->assign('form', $form);
+        $view = new View('loginUser', 'front');
+        $view->assign('form', $form);
     }
 
     /**
@@ -74,8 +74,8 @@ class SecurityController
         $userForm = new UserForm();
         $form = $userForm->getRegisterForm();
 
-        $v = new View('addUser', 'front');
-        $v->assign('form', $form);
+        $view = new View('addUser', 'front');
+        $view->assign('form', $form);
     }
 
     /**
@@ -111,6 +111,6 @@ class SecurityController
      */
     public function forgetPasswordAction(): void
     {
-        $v = new View('forgetPasswordUser', 'front');
+        $view = new View('forgetPasswordUser', 'front');
     }
 }
