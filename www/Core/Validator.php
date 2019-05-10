@@ -78,7 +78,7 @@ class Validator
      * @param $string
      * @return bool
      */
-    public static function checkEmail($string): bool
+    public static function checkEmail($string)
     {
         return filter_var(trim($string), FILTER_VALIDATE_EMAIL);
     }
