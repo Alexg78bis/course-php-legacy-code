@@ -12,43 +12,64 @@ class View
 
     public function __construct($view, $template)
     {
-        $this->setView($view);
-        $this->setTemplate($template);
+        try {
+            $this->setView($view);
+            $this->setTemplate($template);
+        } catch (\Exception $exception) {
+            echo $exception->getMessage();
+        }
     }
 
-    public function View($view)
+    public function View($view): void
     {
-        $this->setView($view);
-        $this->setTemplate('back');
+        try {
+            $this->setView($view);
+            $this->setTemplate('back');
+        } catch (\Exception $exception) {
+            echo $exception->getMessage();
+        }
     }
 
-    public function setView($view)
+    /**
+     * @param $view
+     * @throws \Exception
+     */
+    public function setView($view): void
     {
         $viewPath = 'View/' . $view . '.view.php';
         if (file_exists($viewPath)) {
             $this->view = $viewPath;
         } else {
-            die("Attention le fichier view n'existe pas " . $viewPath);
+            throw new \Exception("Attention le fichier view n'existe pas " . $viewPath);
         }
     }
 
-    public function setTemplate($template)
+    /**
+     * @param $template
+     * @throws \Exception
+     */
+    public function setTemplate($template): void
     {
         $templatePath = 'View/templates/' . $template . '.tpl.php';
         if (file_exists($templatePath)) {
             $this->template = $templatePath;
         } else {
-            die("Attention le fichier template n'existe pas " . $templatePath);
+            throw new \Exception("Attention le fichier template n'existe pas " . $templatePath);
         }
     }
 
-    public function addModal($modal, $config)
+    /**
+     * @param $modal
+     * @param $config
+     * @throws \Exception
+     */
+    public function addModal($modal, $config): void
     {
         $modalPath = 'View/modals/' . $modal . '.mod.php';
         if (file_exists($modalPath)) {
             include $modalPath;
         } else {
-            die("Attention le fichier modal n'existe pas " . $modalPath);
+            throw new \Exception("Attention le fichier modal n'existe pas " . $modalPath);
         }
     }
 
@@ -60,6 +81,10 @@ class View
     public function __destruct()
     {
         extract($this->data);
-        require $this->template;
+        try {
+            require $this->template;
+        } catch (\Exception $exception) {
+            echo $exception->getMessage();
+        }
     }
 }
