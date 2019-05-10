@@ -28,7 +28,7 @@
 
 
 <div class="container">
-    <?php include $this->v; ?>
+    <?php include $this->view; ?>
 </div>
 
 <!-- Bootstrap core JavaScript-->
