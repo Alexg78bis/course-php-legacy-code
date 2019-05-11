@@ -22,7 +22,8 @@ final class UserRepository extends Repository implements UserRepositoryInterface
         return $this->addToDatabase($dataObject);
     }
 
-    public function getOneBy(array $where): ?UserInterface // overide function to type the returned value
+    // overide function to type the returned value
+    public function getOneBy(array $where): ?UserInterface
     {
         return parent::getOneBy($where);
     }
@@ -44,8 +45,6 @@ final class UserRepository extends Repository implements UserRepositoryInterface
             'status' => $user->getStatus(),
         ];
     }
-
-
 }
 
 
