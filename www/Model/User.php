@@ -27,7 +27,7 @@ class User implements UserInterface
     // TODO: move to repository
     public function setPwd($pwd)
     {
-        $this->pwd = password_hash($pwd, PASSWORD_DEFAULT);
+        $this->pwd = $pwd;
     }
 
     public function setRole($role)
