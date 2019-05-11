@@ -8,6 +8,7 @@ use Core\View;
 use Model\UserForm;
 use Model\UserInterface;
 use Repository\UserRepository;
+use ValueObject\Name;
 
 class SecurityController
 {
@@ -93,10 +94,12 @@ class SecurityController
             $form['errors'] = $validator->errors;
 
             if (empty($errors)) {
-                $this->user->setFirstname($data['firstname']);
-                $this->user->setLastname($data['lastname']);
+                $name = new Name($data['firstname'], $data['lastname']);
+                $hashedPassword = $this->userRepository->hashPassword($data['pwd']);
+
+                $this->user->setName($name);
                 $this->user->setEmail($data['email']);
-                $this->user->setPwd($this->userRepository->hashPassword($data['pwd']));
+                $this->user->setPwd($hashedPassword);
                 $this->userRepository->add($this->user);
             }
         }
