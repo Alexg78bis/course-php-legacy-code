@@ -41,7 +41,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return null
+     * @return int
      */
     public function getId(): int
     {
