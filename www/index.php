@@ -26,6 +26,8 @@ function myAutoloader($class)
     $classPath = 'Core/' . $class . '.php';
     $classModel = 'Model/' . $class . '.php';
     $classRepository = 'Repository/' . $class . '.php';
+    $valueObject = 'ValueObject/' . $class . '.php';
+
 
     addRoutingHistory($class);
 
@@ -35,6 +37,8 @@ function myAutoloader($class)
         require_once $classModel;
     } elseif (file_exists($classRepository)) {
         require_once $classRepository;
+    } elseif (file_exists($valueObject)) {
+        require_once $valueObject;
     }
 }
 
