@@ -6,6 +6,8 @@ use ValueObject\Name;
 
 interface UserInterface
 {
+    public function setId(int $id): void;
+
     public function setName(Name $name);
 
     public function setEmail($email);

@@ -14,27 +14,49 @@ class User implements UserInterface
     private $role = 1;
     private $status = 0;
 
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
 
+    /**
+     * @param Name $name
+     */
     public function setName(Name $name)
     {
         $this->name = $name;
     }
 
+    /**
+     * @param $email
+     */
     public function setEmail($email)
     {
         $this->email = strtolower(trim($email));
     }
 
+    /**
+     * @param $pwd
+     */
     public function setPwd($pwd)
     {
         $this->pwd = $pwd;
     }
 
+    /**
+     * @param $role
+     */
     public function setRole($role)
     {
         $this->role = $role;
     }
 
+    /**
+     * @param $status
+     */
     public function setStatus($status)
     {
         $this->status = $status;

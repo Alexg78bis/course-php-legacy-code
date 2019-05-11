@@ -17,35 +17,49 @@ final class UserRepository extends Repository implements UserRepositoryInterface
         $this->class = $user;
     }
 
+
     public function add(UserInterface $user): bool
     {
         $dataObject = $this->getDataObject($user);
         return $this->addToDatabase($dataObject);
     }
 
-    // overide function to type the returned value
+    public function getAll(): ?array
+    {
+        $usersData = parent::getAll();
+        $users = [];
+        foreach ($usersData as $userData) {
+            $users[] = $this->castUser($userData);
+        }
+        return $users;
+    }
+
     public function getOneBy(array $where): UserInterface
     {
         $userData = parent::getOneBy($where);
         return $this->castUser($userData);
     }
 
-    private function castUser($userData): UserInterface
-    {
-        $user = $this->class;
-        $name = new Name($userData['firstname'] ?? '', $userData['lastname'] ?? '');
-        $user->setName($name);
-        $user->setEmail($userData['email'] ?? '');
-        $user->setPwd($userData['pwd'] ?? '');
-        $user->setRole($userData['role'] ?? 0);
-        $user->setStatus($userData['status'] ?? 0);
-
-        return $user;
-    }
 
     public function hashPassword(string $password): string
     {
         return password_hash($password, PASSWORD_DEFAULT);
+    }
+
+
+    private function castUser($userData): UserInterface
+    {
+        $className = get_class($this->class);
+        $user = new $className;
+        $user->setId((int)$userData['id'] ?? 0);
+        $name = new Name($userData['firstname'] ?? '', $userData['lastname'] ?? '');
+        $user->setName($name);
+        $user->setEmail($userData['email'] ?? '');
+        $user->setPwd($userData['pwd'] ?? '');
+        $user->setRole((int)$userData['role'] ?? 0);
+        $user->setStatus((int)$userData['status'] ?? 0);
+
+        return $user;
     }
 
     private function getDataObject(UserInterface $user): array
@@ -61,5 +75,3 @@ final class UserRepository extends Repository implements UserRepositoryInterface
         ];
     }
 }
-
-

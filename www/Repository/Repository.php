@@ -32,11 +32,9 @@ abstract class Repository implements RepositoryInterface
     {
         $sql = ' SELECT * FROM ' . $this->table . ';';
         $query = $this->pdo->prepare($sql);
-        $query->setFetchMode(PDO::FETCH_CLASS, get_class($this->class));
         $query->execute();
 
         $this->loggerRepository->log($query->queryString, []);
-
 
         return $query->fetchAll();
     }
