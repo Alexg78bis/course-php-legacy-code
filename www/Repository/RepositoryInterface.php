@@ -9,6 +9,4 @@ interface RepositoryInterface
     public function getAll(): ?array;
 
     public function getOneBy(array $where);
-
-    public function add($object): bool;
 }

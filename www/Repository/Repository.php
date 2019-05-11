@@ -28,7 +28,6 @@ abstract class Repository implements RepositoryInterface
         $this->loggerRepository = $loggerRepository;
     }
 
-
     public function getAll(): ?array
     {
         $sql = ' SELECT * FROM ' . $this->table . ';';
