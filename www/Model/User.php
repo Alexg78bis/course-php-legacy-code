@@ -3,16 +3,18 @@ declare(strict_types=1);
 
 namespace Model;
 
+use ValueObject\Credentials;
 use ValueObject\Name;
 
 class User implements UserInterface
 {
     private $id = null;
     private $name;
-    private $email;
-    private $pwd;
+    private $credentials;
     private $role = 1;
     private $status = 0;
+
+    // --- --- --- --- SETTER --- --- --- --- \\
 
     /**
      * @param int $id
@@ -25,31 +27,23 @@ class User implements UserInterface
     /**
      * @param Name $name
      */
-    public function setName(Name $name)
+    public function setName(Name $name): void
     {
         $this->name = $name;
     }
 
     /**
-     * @param $email
+     * @param mixed $credentials
      */
-    public function setEmail($email)
+    public function setCredentials(Credentials $credentials): void
     {
-        $this->email = strtolower(trim($email));
-    }
-
-    /**
-     * @param $pwd
-     */
-    public function setPwd($pwd)
-    {
-        $this->pwd = $pwd;
+        $this->credentials = $credentials;
     }
 
     /**
      * @param $role
      */
-    public function setRole($role)
+    public function setRole($role): void
     {
         $this->role = $role;
     }
@@ -57,10 +51,14 @@ class User implements UserInterface
     /**
      * @param $status
      */
-    public function setStatus($status)
+    public function setStatus($status): void
     {
         $this->status = $status;
     }
+
+
+
+    // --- --- --- --- GETTER --- --- --- --- \\
 
     /**
      * @return int
@@ -70,6 +68,9 @@ class User implements UserInterface
         return (int)$this->id;
     }
 
+    /**
+     * @return Name
+     */
     public function getName(): Name
     {
         return $this->name;
@@ -78,17 +79,9 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getEmail(): string
+    public function getCredentials(): Credentials
     {
-        return $this->email;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPwd(): string
-    {
-        return $this->pwd;
+        return $this->credentials;
     }
 
     /**
