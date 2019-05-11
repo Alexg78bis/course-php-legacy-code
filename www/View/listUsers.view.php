@@ -20,12 +20,12 @@
                 <?php if (!empty($users)): ?>
                     <?php foreach ($users as $user): ?>
                         <tr>
-                            <td><?= $user->id ?></td>
-                            <td><?= $user->firstname ?></td>
-                            <td><?= $user->lastname ?></td>
-                            <td><?= $user->email ?></td>
-                            <td><?= $user->status ?></td>
-                            <td><?= $user->role ?></td>
+                            <td><?= $user->getId() ?></td>
+                            <td><?= $user->getName()->getFirstname() ?></td>
+                            <td><?= $user->getName()->getLastname() ?></td>
+                            <td><?= $user->getEmail() ?></td>
+                            <td><?= $user->getStatus() ?></td>
+                            <td><?= $user->getRole() ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
