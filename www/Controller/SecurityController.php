@@ -38,16 +38,16 @@ class SecurityController
 
         $method = strtoupper($form['config']['method']);
         $data = $GLOBALS['_' . $method];
-        if ($_SERVER['REQUEST_METHOD'] == $method && !empty($data)) {
+        if ($_SERVER['REQUEST_METHOD'] === $method && !empty($data)) {
             $validator = new Validator($form, $data);
             $form['errors'] = $validator->errors;
 
             if (empty($errors)) {
                 $user = $this->userRepository->getOneBy(['email' => 'alexandregiannetto@gmail.com']);
+
                 if (password_verify($data['pwd'], $user->getPwd())) {
                     $_SESSION['user'] = $user;
                     header('Location: /');
-                    echo 'sqd';
                 } else {
                     $form['errors'] = ['Compte introuvable'];
                 }
@@ -113,6 +113,6 @@ class SecurityController
      */
     public function forgetPasswordAction(): void
     {
-        $view = new View('forgetPasswordUser', 'front');
+        new View('forgetPasswordUser', 'front');
     }
 }

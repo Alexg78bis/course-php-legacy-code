@@ -50,14 +50,11 @@ abstract class Repository implements RepositoryInterface
         $sql = ' SELECT * FROM ' . $this->table . ' WHERE  ' . implode(' AND ', $sqlWhere) . ';';
         $query = $this->pdo->prepare($sql);
 
-        $query->setFetchMode(PDO::FETCH_INTO, $this->class);
-
-
         $query->execute($where);
 
         $this->loggerRepository->log($query->queryString, $where);
-        return $query->fetch();
 
+        return $query->fetch();
     }
 
     protected function addToDatabase(array $dataObject): bool
@@ -88,6 +85,5 @@ abstract class Repository implements RepositoryInterface
         $this->loggerRepository->log($query->queryString, $dataObject);
         return $query->execute($dataObject);
     }
-
 
 }

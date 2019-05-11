@@ -6,6 +6,7 @@ namespace Repository;
 
 use Model\UserInterface;
 use PDO;
+use ValueObject\Name;
 
 final class UserRepository extends Repository implements UserRepositoryInterface
 {
@@ -23,9 +24,23 @@ final class UserRepository extends Repository implements UserRepositoryInterface
     }
 
     // overide function to type the returned value
-    public function getOneBy(array $where): ?UserInterface
+    public function getOneBy(array $where): UserInterface
     {
-        return parent::getOneBy($where);
+        $userData = parent::getOneBy($where);
+        return $this->castUser($userData);
+    }
+
+    private function castUser($userData): UserInterface
+    {
+        $user = $this->class;
+        $name = new Name($userData['firstname'] ?? '', $userData['lastname'] ?? '');
+        $user->setName($name);
+        $user->setEmail($userData['email'] ?? '');
+        $user->setPwd($userData['pwd'] ?? '');
+        $user->setRole($userData['role'] ?? 0);
+        $user->setStatus($userData['status'] ?? 0);
+
+        return $user;
     }
 
     public function hashPassword(string $password): string

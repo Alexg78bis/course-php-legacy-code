@@ -14,6 +14,7 @@ class User implements UserInterface
     private $role = 1;
     private $status = 0;
 
+
     public function setName(Name $name)
     {
         $this->name = $name;
@@ -24,7 +25,6 @@ class User implements UserInterface
         $this->email = strtolower(trim($email));
     }
 
-    // TODO: move to repository
     public function setPwd($pwd)
     {
         $this->pwd = $pwd;
