@@ -2,7 +2,7 @@
 
 namespace Model;
 
-use ValueObject\Credentials;
+use ValueObject\Account;
 use ValueObject\Name;
 
 interface UserInterface
@@ -12,9 +12,7 @@ interface UserInterface
 
     public function setName(Name $name): void;
 
-    public function setCredentials(Credentials $credentials): void;
-
-    public function setRole($role): void;
+    public function setAccount(Account $account): void;
 
     public function setStatus($status): void;
 
@@ -24,9 +22,7 @@ interface UserInterface
 
     public function getName(): Name;
 
-    public function getCredentials(): Credentials;
-
-    public function getRole(): int;
+    public function getAccount(): Account;
 
     public function getStatus(): int;
 }

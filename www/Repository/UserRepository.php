@@ -6,6 +6,7 @@ namespace Repository;
 
 use Model\UserInterface;
 use PDO;
+use ValueObject\Account;
 use ValueObject\Credentials;
 use ValueObject\Name;
 
@@ -51,14 +52,13 @@ final class UserRepository extends Repository implements UserRepositoryInterface
 
     private function castUser($userData): UserInterface
     {
-        $className = get_class($this->class);
-        $user = new $className;
+        $user = clone $this->class;
         $user->setId((int)$userData['id'] ?? 0);
         $name = new Name($userData['firstname'] ?? '', $userData['lastname'] ?? '');
         $user->setName($name);
         $credentials = new Credentials($userData['email'] ?? '', $userData['pwd'] ?? '');
-        $user->setCredentials($credentials);
-        $user->setRole((int)$userData['role'] ?? 0);
+        $account = new Account($credentials, (int)$userData['role'] ?? 0);
+        $user->setAccount($account);
         $user->setStatus((int)$userData['status'] ?? 0);
 
         return $user;
@@ -70,9 +70,9 @@ final class UserRepository extends Repository implements UserRepositoryInterface
             'id' => $user->getId(),
             'firstname' => $user->getName()->getFirstname(),
             'lastname' => $user->getName()->getLastname(),
-            'email' => $user->getCredentials()->getEmail(),
-            'pwd' => $user->getCredentials()->getPassword(),
-            'role' => $user->getRole(),
+            'email' => $user->getAccount()->getCredentials()->getEmail(),
+            'pwd' => $user->getAccount()->getCredentials()->getPassword(),
+            'role' => $user->getAccount()->getRole(),
             'status' => $user->getStatus(),
         ];
     }

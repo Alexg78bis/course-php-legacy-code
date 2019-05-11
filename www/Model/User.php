@@ -3,15 +3,27 @@ declare(strict_types=1);
 
 namespace Model;
 
-use ValueObject\Credentials;
+use ValueObject\Account;
 use ValueObject\Name;
 
+/**
+ * Class User
+ * An User have
+ * - a name,
+ * - status
+ * - account
+ *   - role
+ *   - credentials
+ *     - email
+ *     - password
+ *
+ * @package Model
+ */
 class User implements UserInterface
 {
     private $id = null;
     private $name;
-    private $credentials;
-    private $role = 1;
+    private $account;
     private $status = 0;
 
     // --- --- --- --- SETTER --- --- --- --- \\
@@ -33,20 +45,13 @@ class User implements UserInterface
     }
 
     /**
-     * @param mixed $credentials
+     * @param mixed $account
      */
-    public function setCredentials(Credentials $credentials): void
+    public function setAccount(Account $account): void
     {
-        $this->credentials = $credentials;
+        $this->account = $account;
     }
 
-    /**
-     * @param $role
-     */
-    public function setRole($role): void
-    {
-        $this->role = $role;
-    }
 
     /**
      * @param $status
@@ -79,17 +84,9 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getCredentials(): Credentials
+    public function getAccount(): Account
     {
-        return $this->credentials;
-    }
-
-    /**
-     * @return int
-     */
-    public function getRole(): int
-    {
-        return $this->role;
+        return $this->account;
     }
 
     /**
