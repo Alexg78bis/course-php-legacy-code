@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Controller;
@@ -12,7 +13,6 @@ use ValueObject\Password;
 
 class SecurityController
 {
-
     /**
      * @var UserInterface
      */
@@ -29,7 +29,7 @@ class SecurityController
     }
 
     /**
-     * Login Page
+     * Login Page.
      */
     public function loginAction()
     {
@@ -45,14 +45,16 @@ class SecurityController
             if (empty($errors)) {
                 $user = $this->userRepository->getOneBy(['email' => $data['email']]);
 
-                if (password_verify($data['pwd'], (string)$user->getAccount()->getCredentials()->getPassword())) {
+                $account = $user->getAccount();
+                $credentials = $account->getCredentials();
+                $password = $credentials->getPassword();
+
+                if (password_verify($data['pwd'], (string)$password)) {
                     $_SESSION['user'] = $user;
                     header('Location: /');
-                    exit;
                 }
 
                 $form['errors'] = ['Compte introuvable'];
-
             }
         }
 
@@ -61,7 +63,7 @@ class SecurityController
     }
 
     /**
-     * Disconnect Page
+     * Disconnect Page.
      */
     public function disconnectAction(): void
     {
@@ -70,7 +72,7 @@ class SecurityController
     }
 
     /**
-     * Add a new user page
+     * Add a new user page.
      */
     public function addAction(): void
     {
@@ -82,7 +84,7 @@ class SecurityController
     }
 
     /**
-     * function called by the add user form
+     * function called by the add user form.
      */
     public function saveAction()
     {
@@ -97,7 +99,6 @@ class SecurityController
         $validator = new Validator($form, $data);
         $form['errors'] = $validator->errors;
         if (empty($errors)) {
-
             $hashedPassword = Password::hash($data['pwd']);
 
             $userData = [
@@ -108,7 +109,6 @@ class SecurityController
             ];
             $user = $this->userRepository->castUser($userData);
             $this->userRepository->add($user);
-
         }
 
         $view = new View('addUser', 'front');
@@ -116,7 +116,7 @@ class SecurityController
     }
 
     /**
-     * Forget password page
+     * Forget password page.
      */
     public function forgetPasswordAction(): void
     {

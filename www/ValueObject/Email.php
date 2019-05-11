@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace ValueObject;
-
 
 use Error;
 
@@ -28,5 +27,4 @@ class Email
     {
         return $this->email;
     }
-
 }

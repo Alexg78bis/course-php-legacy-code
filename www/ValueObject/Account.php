@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ValueObject;
 
 class Account
 {
-
     /**
      * @var Credentials
      */
@@ -52,6 +52,4 @@ class Account
     {
         $this->role = $role;
     }
-
-
 }

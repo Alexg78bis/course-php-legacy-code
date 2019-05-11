@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Model;
@@ -15,9 +16,7 @@ use ValueObject\Name;
  *   - role
  *   - credentials
  *     - email
- *     - password
- *
- * @package Model
+ *     - password.
  */
 class User implements UserInterface
 {
@@ -52,7 +51,6 @@ class User implements UserInterface
         $this->account = $account;
     }
 
-
     /**
      * @param $status
      */
@@ -60,8 +58,6 @@ class User implements UserInterface
     {
         $this->status = $status;
     }
-
-
 
     // --- --- --- --- GETTER --- --- --- --- \\
 
@@ -96,5 +92,4 @@ class User implements UserInterface
     {
         return $this->status;
     }
-
 }

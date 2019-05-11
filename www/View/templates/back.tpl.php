@@ -27,7 +27,7 @@
 
 <body id="page-top">
 
-<?php include './View/debugTools.php' ?>
+<?php include './View/debugTools.php'; ?>
 
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 

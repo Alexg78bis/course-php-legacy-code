@@ -1,4 +1,8 @@
-<?php use Core\Routing; ?>
+<?php
+
+use Core\Routing;
+
+?>
 <div class="card card-register mx-auto mt-5">
     <div class="card-header">Register an Account</div>
     <div class="card-body">

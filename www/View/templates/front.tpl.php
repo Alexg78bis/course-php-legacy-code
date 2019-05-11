@@ -24,7 +24,7 @@
 
 <body class="bg-dark">
 
-<?php include './View/debugTools.php' ?>
+<?php include './View/debugTools.php'; ?>
 
 
 <div class="container">

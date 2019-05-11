@@ -20,12 +20,12 @@
                 <?php if (!empty($users)): ?>
                     <?php foreach ($users as $user): ?>
                         <tr>
-                            <td><?= $user->getId() ?? '' ?></td>
-                            <td><?= $user->getName()->getFirstname() ?? '' ?></td>
-                            <td><?= $user->getName()->getLastname() ?? '' ?></td>
-                            <td><?= $user->getAccount()->getCredentials()->getEmail() ?? '' ?></td>
-                            <td><?= $user->getStatus() ?? '' ?></td>
-                            <td><?= $user->getAccount()->getRole() ?? '' ?></td>
+                            <td><?= $user->getId() ?? ''; ?></td>
+                            <td><?= $user->getName()->getFirstname() ?? ''; ?></td>
+                            <td><?= $user->getName()->getLastname() ?? ''; ?></td>
+                            <td><?= $user->getAccount()->getCredentials()->getEmail() ?? ''; ?></td>
+                            <td><?= $user->getStatus() ?? ''; ?></td>
+                            <td><?= $user->getAccount()->getRole() ?? ''; ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -33,5 +33,5 @@
             </table>
         </div>
     </div>
-    <div class="card-footer small text-muted">Mis à jour le <?= date('d/m/Y à H:i') ?></div>
+    <div class="card-footer small text-muted">Mis à jour le <?= date('d/m/Y à H:i'); ?></div>
 </div>

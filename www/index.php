@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Core\Routing;
 
-
 session_start();
 
 initialiseRoutingHistory();
@@ -28,7 +27,6 @@ function myAutoloader($class)
     $classRepository = 'Repository/' . $class . '.php';
     $valueObject = 'ValueObject/' . $class . '.php';
 
-
     addRoutingHistory($class);
 
     if (file_exists($classPath)) {
@@ -41,7 +39,6 @@ function myAutoloader($class)
         require_once $valueObject;
     }
 }
-
 
 // La fonction myAutoloader est lancé sur la classe appelée n'est pas trouvée
 spl_autoload_register('myAutoloader');
@@ -72,6 +69,3 @@ if (!method_exists($cObject, $action)) {
 }
 //appel dynamique de la méthode
 $cObject->$action();
-
-
-

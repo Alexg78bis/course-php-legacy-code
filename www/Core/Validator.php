@@ -47,6 +47,7 @@ class Validator
 
     /**
      * @param $string
+     *
      * @return bool
      */
     public static function notEmpty($string): bool
@@ -57,6 +58,7 @@ class Validator
     /**
      * @param $string
      * @param $length
+     *
      * @return bool
      */
     public static function minLength($string, $length): bool
@@ -67,6 +69,7 @@ class Validator
     /**
      * @param $string
      * @param $length
+     *
      * @return bool
      */
     public static function maxLength($string, $length): bool
@@ -76,6 +79,7 @@ class Validator
 
     /**
      * @param $string
+     *
      * @return bool
      */
     public static function checkEmail($string)
@@ -85,6 +89,7 @@ class Validator
 
     /**
      * @param $string
+     *
      * @return bool
      */
     public static function checkPassword($string): bool

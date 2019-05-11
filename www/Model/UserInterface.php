@@ -16,7 +16,6 @@ interface UserInterface
 
     public function setStatus($status): void;
 
-
     // --- --- --- --- GETTER --- --- -_- --- \\
     public function getId(): int;
 

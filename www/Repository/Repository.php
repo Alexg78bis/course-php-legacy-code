@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Repository;
@@ -50,7 +51,6 @@ abstract class Repository implements RepositoryInterface
 
         $query->execute($where);
 
-
         $this->loggerRepository->log($query->queryString, $where);
 
         return $query->fetch();
@@ -64,8 +64,8 @@ abstract class Repository implements RepositoryInterface
 
         $query = $this->pdo->prepare($sql);
 
-
         $this->loggerRepository->log($query->queryString, $dataObject);
+
         return $query->execute($dataObject);
     }
 
@@ -82,7 +82,7 @@ abstract class Repository implements RepositoryInterface
 
         $query = $this->pdo->prepare($sql);
         $this->loggerRepository->log($query->queryString, $dataObject);
+
         return $query->execute($dataObject);
     }
-
 }

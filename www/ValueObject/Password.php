@@ -1,15 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace ValueObject;
-
 
 use Error;
 
 class Password
 {
-
     /**
      * @var string
      */
@@ -26,11 +24,13 @@ class Password
             throw new Error('Le mot de passe doit faire au minimum 6 caractères avec des minuscules, majuscules et chiffres');
         }
         $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
+
         return new Password($passwordHashed);
     }
 
     /**
      * @param string $password
+     *
      * @return bool
      */
     public static function validate(string $password): bool
@@ -44,6 +44,4 @@ class Password
     {
         return $this->password;
     }
-
-
 }

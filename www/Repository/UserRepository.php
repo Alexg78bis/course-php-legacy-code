@@ -21,10 +21,10 @@ final class UserRepository extends Repository implements UserRepositoryInterface
         $this->class = $user;
     }
 
-
     public function add(UserInterface $user): bool
     {
         $dataObject = $this->getDataObject($user);
+
         return $this->addToDatabase($dataObject);
     }
 
@@ -35,6 +35,7 @@ final class UserRepository extends Repository implements UserRepositoryInterface
         foreach ($usersData as $userData) {
             $users[] = $this->castUser($userData);
         }
+
         return $users;
     }
 
@@ -44,7 +45,6 @@ final class UserRepository extends Repository implements UserRepositoryInterface
 
         return $this->castUser($userData);
     }
-
 
     public function castUser($userData): UserInterface
     {

@@ -5,7 +5,7 @@
             <h3>Routing</h3>
             <ol>
                 <?php foreach ($_SESSION['routingHistory'] as $route): ?>
-                    <li><?= $route ?></li>
+                    <li><?= $route; ?></li>
                 <?php endforeach; ?>
             </ol>
         </section>
@@ -14,8 +14,8 @@
             <ol>
                 <?php foreach ($_SESSION['sqlHistory'] as $query): ?>
                     <li>
-                        <b>Page :</b> <?= $query['page'] ?? '' ?><br><br>
-                        <b>SQL :</b> <?= $query['sql'] ?? '' ?><br><br>
+                        <b>Page :</b> <?= $query['page'] ?? ''; ?><br><br>
+                        <b>SQL :</b> <?= $query['sql'] ?? ''; ?><br><br>
                         <b>Params :</b>
                         <pre>
                             <?php print_r($query['params'] ?? []); ?>

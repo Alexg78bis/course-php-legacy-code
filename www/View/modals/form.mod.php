@@ -1,4 +1,4 @@
-<?php $data = ($config['config']['method'] === 'POST') ? $_POST : $_GET; ?>
+<?php $data = ('POST' === $config['config']['method']) ? $_POST : $_GET; ?>
 
 <?php if (!empty($config['errors'])): ?>
     <div class="alert alert-danger">
@@ -39,7 +39,7 @@
                            value="<?php echo $data[$key] ?? ''; ?>"
                     >
 
-                    <label for="<?= $value['id'] ?>"><?= $value['placeholder'] ?></label>
+                    <label for="<?= $value['id']; ?>"><?= $value['placeholder']; ?></label>
 
                 <?php endif; ?>
 

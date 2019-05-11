@@ -32,6 +32,7 @@ class View
 
     /**
      * @param $view
+     *
      * @throws \Exception
      */
     public function setView($view): void
@@ -46,6 +47,7 @@ class View
 
     /**
      * @param $template
+     *
      * @throws \Exception
      */
     public function setTemplate($template): void
@@ -61,6 +63,7 @@ class View
     /**
      * @param $modal
      * @param $config
+     *
      * @throws \Exception
      */
     public function addModal($modal, $config): void

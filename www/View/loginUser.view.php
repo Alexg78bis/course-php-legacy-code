@@ -1,4 +1,6 @@
-<?php use Core\Routing; ?>
+<?php use Core\Routing;
+
+?>
 <div class="card card-login mx-auto mt-5">
     <div class="card-header">Login</div>
     <div class="card-body">

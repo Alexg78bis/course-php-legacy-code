@@ -31,5 +31,4 @@ class UserController
         $view = new View('listUsers', 'back');
         $view->assign('users', $users);
     }
-
 }
