@@ -6,6 +6,7 @@ namespace Repository;
 
 use Model\UserInterface;
 use PDO;
+use ValueObject\Credentials;
 use ValueObject\Name;
 
 final class UserRepository extends Repository implements UserRepositoryInterface
@@ -37,6 +38,7 @@ final class UserRepository extends Repository implements UserRepositoryInterface
     public function getOneBy(array $where): UserInterface
     {
         $userData = parent::getOneBy($where);
+
         return $this->castUser($userData);
     }
 
@@ -54,8 +56,8 @@ final class UserRepository extends Repository implements UserRepositoryInterface
         $user->setId((int)$userData['id'] ?? 0);
         $name = new Name($userData['firstname'] ?? '', $userData['lastname'] ?? '');
         $user->setName($name);
-        $user->setEmail($userData['email'] ?? '');
-        $user->setPwd($userData['pwd'] ?? '');
+        $credentials = new Credentials($userData['email'] ?? '', $userData['pwd'] ?? '');
+        $user->setCredentials($credentials);
         $user->setRole((int)$userData['role'] ?? 0);
         $user->setStatus((int)$userData['status'] ?? 0);
 
@@ -68,8 +70,8 @@ final class UserRepository extends Repository implements UserRepositoryInterface
             'id' => $user->getId(),
             'firstname' => $user->getName()->getFirstname(),
             'lastname' => $user->getName()->getLastname(),
-            'email' => $user->getEmail(),
-            'pwd' => $user->getPwd(),
+            'email' => $user->getCredentials()->getEmail(),
+            'pwd' => $user->getCredentials()->getPassword(),
             'role' => $user->getRole(),
             'status' => $user->getStatus(),
         ];

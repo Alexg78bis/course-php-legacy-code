@@ -50,6 +50,7 @@ abstract class Repository implements RepositoryInterface
 
         $query->execute($where);
 
+
         $this->loggerRepository->log($query->queryString, $where);
 
         return $query->fetch();

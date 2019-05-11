@@ -23,7 +23,7 @@
                             <td><?= $user->getId() ?></td>
                             <td><?= $user->getName()->getFirstname() ?></td>
                             <td><?= $user->getName()->getLastname() ?></td>
-                            <td><?= $user->getEmail() ?></td>
+                            <td><?= $user->getCredentials()->getEmail() ?></td>
                             <td><?= $user->getStatus() ?></td>
                             <td><?= $user->getRole() ?></td>
                         </tr>
