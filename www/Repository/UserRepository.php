@@ -16,6 +16,12 @@ final class UserRepository extends Repository implements UserRepositoryInterface
         $this->class = $user;
     }
 
+    public function add(UserInterface $user): bool
+    {
+        $dataObject = $this->getDataObject($user);
+        return $this->addToDatabase($dataObject);
+    }
+
     public function getOneBy(array $where): ?UserInterface // overide function to type the returned value
     {
         return parent::getOneBy($where);
@@ -24,6 +30,19 @@ final class UserRepository extends Repository implements UserRepositoryInterface
     public function hashPassword(string $password): string
     {
         return password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    private function getDataObject(UserInterface $user): array
+    {
+        return [
+            'id' => $user->getId(),
+            'firstname' => $user->getName()->getFirstname(),
+            'lastname' => $user->getName()->getLastname(),
+            'email' => $user->getEmail(),
+            'pwd' => $user->getPwd(),
+            'role' => $user->getRole(),
+            'status' => $user->getStatus(),
+        ];
     }
 
 }

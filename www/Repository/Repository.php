@@ -8,14 +8,14 @@ use PDO;
 
 abstract class Repository implements RepositoryInterface
 {
-    private $pdo;
+    protected $pdo;
     protected $table;
     protected $class;
 
     /**
      * @var LoggerRepositoryInferface
      */
-    private $loggerRepository;
+    protected $loggerRepository;
 
     public function __construct(PDO $PDO, LoggerRepositoryInferface $loggerRepository)
     {
@@ -61,33 +61,34 @@ abstract class Repository implements RepositoryInterface
 
     }
 
-    public function add($object): bool
+    protected function addToDatabase(array $dataObject): bool
     {
-        $dataObject = get_object_vars($object);
+        $sql = 'INSERT INTO ' . $this->table . ' ( ' .
+            implode(',', array_keys($dataObject)) . ') VALUES ( :' .
+            implode(',:', array_keys($dataObject)) . ')';
 
-        if (is_null($dataObject['id'])) {
+        $query = $this->pdo->prepare($sql);
 
-            $sql = 'INSERT INTO ' . $this->table . ' ( ' .
-                implode(',', array_keys($dataObject)) . ') VALUES ( :' .
-                implode(',:', array_keys($dataObject)) . ')';
-
-            $query = $this->pdo->prepare($sql);
-        } else {
-            $sqlUpdate = [];
-            foreach ($dataObject as $key => $value) {
-                if ('id' != $key) {
-                    $sqlUpdate[] = $key . '=:' . $key;
-                }
-            }
-
-            $sql = 'UPDATE ' . $this->table . ' SET ' . implode(',', $sqlUpdate) . ' WHERE id=:id';
-
-            $query = $this->pdo->prepare($sql);
-
-        }
 
         $this->loggerRepository->log($query->queryString, $dataObject);
         return $query->execute($dataObject);
     }
+
+    protected function updtateToDatabase(array $dataObject): bool
+    {
+        $sqlUpdate = [];
+        foreach ($dataObject as $key => $value) {
+            if ('id' != $key) {
+                $sqlUpdate[] = $key . '=:' . $key;
+            }
+        }
+
+        $sql = 'UPDATE ' . $this->table . ' SET ' . implode(',', $sqlUpdate) . ' WHERE id=:id';
+
+        $query = $this->pdo->prepare($sql);
+        $this->loggerRepository->log($query->queryString, $dataObject);
+        return $query->execute($dataObject);
+    }
+
 
 }
