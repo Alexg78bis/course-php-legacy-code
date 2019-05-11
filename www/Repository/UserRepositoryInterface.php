@@ -12,4 +12,6 @@ interface UserRepositoryInterface extends RepositoryInterface
     public function __construct(PDO $PDO, LoggerRepositoryInferface $loggerRepository, UserInterface $user);
 
     public function add(UserInterface $user): bool;
+
+    public function castUser($userData): UserInterface;
 }

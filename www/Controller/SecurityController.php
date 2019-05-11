@@ -101,6 +101,7 @@ class SecurityController
         if (empty($errors)) {
             $hashedPassword = Password::hash($data['pwd']);
 
+            // We don't know how to create an user so we called this function which creat it for us
             $userData = [
                 'firstname' => $data['firstname'],
                 'lastname' => $data['lastname'],
@@ -116,7 +117,7 @@ class SecurityController
     }
 
     /**
-     * Forget password page.
+     * Forget password page
      */
     public function forgetPasswordAction(): void
     {

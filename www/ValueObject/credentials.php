@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ValueObject;
@@ -10,6 +11,7 @@ class Credentials
 
     /**
      * credentials constructor.
+     *
      * @param $email
      * @param $password
      */
