@@ -8,9 +8,7 @@ use Core\View;
 use Model\UserForm;
 use Model\UserInterface;
 use Repository\UserRepository;
-use ValueObject\Account;
-use ValueObject\Credentials;
-use ValueObject\Name;
+use ValueObject\Password;
 
 class SecurityController
 {
@@ -47,7 +45,7 @@ class SecurityController
             if (empty($errors)) {
                 $user = $this->userRepository->getOneBy(['email' => $data['email']]);
 
-                if (password_verify($data['pwd'], $user->getAccount()->getCredentials()->getPassword())) {
+                if (password_verify($data['pwd'], (string)$user->getAccount()->getCredentials()->getPassword())) {
                     $_SESSION['user'] = $user;
                     header('Location: /');
                     exit;
@@ -99,14 +97,17 @@ class SecurityController
         $validator = new Validator($form, $data);
         $form['errors'] = $validator->errors;
         if (empty($errors)) {
-            $name = new Name($data['firstname'], $data['lastname']);
-            $hashedPassword = $this->userRepository->hashPassword($data['pwd']);
-            $credentials = new Credentials($data['email'], $hashedPassword);
-            $account = new Account($credentials);
 
-            $this->user->setName($name);
-            $this->user->setAccount($account);
-            $this->userRepository->add($this->user);
+            $hashedPassword = Password::hash($data['pwd']);
+
+            $userData = [
+                'firstname' => $data['firstname'],
+                'lastname' => $data['lastname'],
+                'pwd' => $hashedPassword,
+                'email' => $data['email'],
+            ];
+            $user = $this->userRepository->castUser($userData);
+            $this->userRepository->add($user);
 
         }
 

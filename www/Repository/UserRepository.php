@@ -8,7 +8,9 @@ use Model\UserInterface;
 use PDO;
 use ValueObject\Account;
 use ValueObject\Credentials;
+use ValueObject\Email;
 use ValueObject\Name;
+use ValueObject\Password;
 
 final class UserRepository extends Repository implements UserRepositoryInterface
 {
@@ -44,22 +46,20 @@ final class UserRepository extends Repository implements UserRepositoryInterface
     }
 
 
-    public function hashPassword(string $password): string
-    {
-        return password_hash($password, PASSWORD_DEFAULT);
-    }
-
-
-    private function castUser($userData): UserInterface
+    public function castUser($userData): UserInterface
     {
         $user = clone $this->class;
-        $user->setId((int)$userData['id'] ?? 0);
+
         $name = new Name($userData['firstname'] ?? '', $userData['lastname'] ?? '');
+        $email = new Email($userData['email']);
+        $password = new Password($userData['pwd']);
+        $credentials = new Credentials($email, $password);
+        $account = new Account($credentials, (int)($userData['role'] ?? '1'));
+
+        $user->setId((int)($userData['id'] ?? '0'));
         $user->setName($name);
-        $credentials = new Credentials($userData['email'] ?? '', $userData['pwd'] ?? '');
-        $account = new Account($credentials, (int)$userData['role'] ?? 0);
         $user->setAccount($account);
-        $user->setStatus((int)$userData['status'] ?? 0);
+        $user->setStatus((int)($userData['status'] ?? '0'));
 
         return $user;
     }

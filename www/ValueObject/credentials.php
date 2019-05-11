@@ -13,41 +13,25 @@ class Credentials
      * @param $email
      * @param $password
      */
-    public function __construct(string $email, string $password)
+    public function __construct(Email $email, Password $password)
     {
         $this->email = $email;
         $this->password = $password;
     }
 
     /**
-     * @return string
+     * @return Email
      */
-    public function getEmail(): string
+    public function getEmail(): Email
     {
         return $this->email;
     }
 
     /**
-     * @param string $email
+     * @return Password
      */
-    public function setEmail(string $email): void
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword(): string
+    public function getPassword(): Password
     {
         return $this->password;
-    }
-
-    /**
-     * @param string $password
-     */
-    public function setPassword(string $password): void
-    {
-        $this->password = $password;
     }
 }
