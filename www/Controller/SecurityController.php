@@ -32,7 +32,7 @@ class SecurityController
     /**
      * Login Page
      */
-    public function loginAction(): void
+    public function loginAction()
     {
         $userForm = new UserForm();
         $form = $userForm->getLoginForm();
@@ -49,9 +49,11 @@ class SecurityController
                 if (password_verify($data['pwd'], $user->getCredentials()->getPassword())) {
                     $_SESSION['user'] = $user;
                     header('Location: /');
-                } else {
-                    $form['errors'] = ['Compte introuvable'];
+                    exit;
                 }
+
+                $form['errors'] = ['Compte introuvable'];
+
             }
         }
 
@@ -83,27 +85,30 @@ class SecurityController
     /**
      * function called by the add user form
      */
-    public function saveAction(): void
+    public function saveAction()
     {
         $userForm = new UserForm();
         $form = $userForm->getRegisterForm();
         $method = strtoupper($form['config']['method']);
         $data = $GLOBALS['_' . $method];
-
-        if ($_SERVER['REQUEST_METHOD'] == $method && !empty($data)) {
-            $validator = new Validator($form, $data);
-            $form['errors'] = $validator->errors;
-
-            if (empty($errors)) {
-                $name = new Name($data['firstname'], $data['lastname']);
-                $hashedPassword = $this->userRepository->hashPassword($data['pwd']);
-                $credentials = new Credentials($data['email'], $hashedPassword);
-
-                $this->user->setName($name);
-                $this->user->setCredentials($credentials);
-                $this->userRepository->add($this->user);
-            }
+        if ($_SERVER['REQUEST_METHOD'] !== $method || empty($data)) {
+            return null;
         }
+
+        $validator = new Validator($form, $data);
+        $form['errors'] = $validator->errors;
+        if (!empty($errors)) {
+            return $errors;
+        }
+
+        $name = new Name($data['firstname'], $data['lastname']);
+        $hashedPassword = $this->userRepository->hashPassword($data['pwd']);
+        $credentials = new Credentials($data['email'], $hashedPassword);
+
+        $this->user->setName($name);
+        $this->user->setCredentials($credentials);
+        $this->userRepository->add($this->user);
+
 
         $view = new View('addUser', 'front');
         $view->assign('form', $form);

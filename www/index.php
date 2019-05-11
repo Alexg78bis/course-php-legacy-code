@@ -57,21 +57,21 @@ $container += require 'config/di.global.php';
 
 // Vérifie l'existence du fichier et de la classe pour charger le controlleur
 
-if (file_exists($controllerPath)) {
-    require_once $controllerPath;
-    if (class_exists('\\Controller\\' . $controller)) {
-        //instancier dynamiquement le controller
-        $cObject = $container['Controller\\' . $controller]($container);
-        //vérifier que la méthode (l'action) existe
-        if (method_exists($cObject, $action)) {
-            //appel dynamique de la méthode
-            $cObject->$action();
-        } else {
-            die('La methode ' . $action . " n'existe pas");
-        }
-    } else {
-        die('La class controller ' . $controller . " n'existe pas");
-    }
-} else {
+if (!file_exists($controllerPath)) {
     die('Le fichier controller ' . $controller . " n'existe pas");
 }
+require_once $controllerPath;
+if (!class_exists('\\Controller\\' . $controller)) {
+    die('La class controller ' . $controller . " n'existe pas");
+}
+//instancier dynamiquement le controller
+$cObject = $container['Controller\\' . $controller]($container);
+//vérifier que la méthode (l'action) existe
+if (!method_exists($cObject, $action)) {
+    die('La methode ' . $action . " n'existe pas");
+}
+//appel dynamique de la méthode
+$cObject->$action();
+
+
+
